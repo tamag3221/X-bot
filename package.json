@@ -1,0 +1,8 @@
+{
+ "name":"xbot",
+ "dependencies":{
+  "playwright":"latest",
+  "node-fetch":"latest",
+  "express":"latest"
+ }
+}
