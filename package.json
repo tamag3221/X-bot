@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "postinstall": "npx playwright install"
-  },
+  "start": "node index.js",
+  "postinstall": "npx playwright install --with-deps"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
