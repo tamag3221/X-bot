@@ -1,10 +1,3 @@
-// 投稿する曜日（0=日 1=月 ... 6=土）
-const postDays = [1,3,0]; // 月 水 日
-
-// 投稿時間
-const postHour = 13;
-const postMinute = 0;
-
 const { chromium } = require("playwright");
 const fetch = require("node-fetch");
 const fs = require("fs");
@@ -14,6 +7,13 @@ const app = express();
 
 const sheetCSV =
 "https://docs.google.com/spreadsheets/d/1gxFhMoyVJ4jgNFUrXQ4ue_JdaY-NI1X0Vbni-CHCPzk/export?format=csv&gid=1199880034";
+
+// 投稿する曜日（0=日 1=月 ... 6=土）
+const postDays = [1,3,0]; // 月 水 日
+
+// 投稿時間
+const postHour = 13;
+const postMinute = 0;
 
 // GAS Webhook（あとで自分のURLに変更）
 const gasWebhook = "https://script.google.com/macros/s/AKfycbzo1jFM4vXzn6-3OpObB7VDZZNHP4lj0FNTsNVeWUdiyCR3hMs7Qn5IpMdSr3gm9P0O/exec";
@@ -76,30 +76,60 @@ async function postTweet(tweet) {
   }
 }
 
-async function runBot() {
-  try {
-    const res = await fetch(sheetCSV);
-    const text = await res.text();
-    const rows = text.split("\n");
+async function runBot(){
 
-    const now = new Date();
-    const time = now.getHours() + ":" + String(now.getMinutes()).padStart(2, "0");
+try{
 
-    for (let i = 1; i < rows.length; i++) {
-      const cols = rows[i].split(",");
-      const tweet = cols[0];
-      const tweetTime = cols[1];
-      const posted = cols[2];
+const now = new Date();
 
-      if (tweetTime === time && posted !== "YES") {
-        console.log("投稿予定:", tweet);
-        await postTweet(tweet);
-        await markPosted(i + 1);
-      }
-    }
-  } catch (e) {
-    console.log("bot error:", e);
-  }
+const day = now.getDay();
+const hour = now.getHours();
+const minute = now.getMinutes();
+
+// 投稿曜日と時間チェック
+if(!postDays.includes(day) || hour !== postHour || minute !== postMinute){
+return;
+}
+
+const res = await fetch(sheetCSV);
+const text = await res.text();
+const rows = text.split("\n");
+
+let candidates = [];
+
+for(let i=1;i<rows.length;i++){
+
+const cols = rows[i].split(",");
+
+const tweet = cols[0];
+const posted = cols[1];
+
+if(posted !== "YES"){
+candidates.push({tweet,row:i+1});
+}
+
+}
+
+if(candidates.length === 0){
+console.log("投稿できるツイートなし");
+return;
+}
+
+// ランダム選択
+const random = candidates[Math.floor(Math.random()*candidates.length)];
+
+console.log("投稿:",random.tweet);
+
+await postTweet(random.tweet);
+
+await markPosted(random.row);
+
+}catch(e){
+
+console.log("bot error:",e);
+
+}
+
 }
 
 // 起動
