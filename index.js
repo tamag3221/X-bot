@@ -12,7 +12,7 @@ const postDays = [1,3,0]; // 月 水 日
 
 // 投稿時間
 const postHour = 9;
-const postMinute = 20;
+const postMinute = 37;
 
 // GAS Webhook（あとで自分のURLに変更）
 const gasWebhook = "https://script.google.com/macros/s/AKfycbzo1jFM4vXzn6-3OpObB7VDZZNHP4lj0FNTsNVeWUdiyCR3hMs7Qn5IpMdSr3gm9P0O/exec";
@@ -36,15 +36,19 @@ let context;
 let page;
 
 async function startBrowser() {
+
   browser = await chromium.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    args: ["--no-sandbox","--disable-setuid-sandbox"]
   });
 
   context = await browser.newContext();
+
   await context.addCookies(cookies);
 
   page = await context.newPage();
+
+  await page.goto("https://x.com/home");
 
   console.log("browser started");
 }
