@@ -1,3 +1,10 @@
+// 投稿する曜日（0=日 1=月 ... 6=土）
+const postDays = [1,3,0]; // 月 水 日
+
+// 投稿時間
+const postHour = 13;
+const postMinute = 0;
+
 const { chromium } = require("playwright");
 const fetch = require("node-fetch");
 const fs = require("fs");
