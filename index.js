@@ -1,5 +1,4 @@
 const { chromium } = require("playwright");
-const fetch = require("node-fetch");
 const fs = require("fs");
 const express = require("express");
 
@@ -13,7 +12,7 @@ const postDays = [1,3,0]; // 月 水 日
 
 // 投稿時間
 const postHour = 8;
-const postMinute = 33;
+const postMinute = 55;
 
 // GAS Webhook（あとで自分のURLに変更）
 const gasWebhook = "https://script.google.com/macros/s/AKfycbzo1jFM4vXzn6-3OpObB7VDZZNHP4lj0FNTsNVeWUdiyCR3hMs7Qn5IpMdSr3gm9P0O/exec";
