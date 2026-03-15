@@ -6,14 +6,14 @@ const express = require("express");
 const app = express();
 
 const sheetCSV =
-"https://docs.google.com/spreadsheets/d/1gxFhMoyVJ4jgNFUrXQ4ue_JdaY-NI1X0Vbni-CHCPzk/export?format=csv&gid=1199880034";
+"https://docs.google.com/spreadsheets/d/1gxFhMoyVJ4jgNFUrXQ4ue_JdaY-NI1X0Vbni-CHCPzk/export?format=csv&gid=1877263199";
 
 // 投稿する曜日（0=日 1=月 ... 6=土）
 const postDays = [1,3,0]; // 月 水 日
 
 // 投稿時間
-const postHour = 6;
-const postMinute = 01;
+const postHour = 15;
+const postMinute = 20;
 
 // GAS Webhook（あとで自分のURLに変更）
 const gasWebhook = "https://script.google.com/macros/s/AKfycbzo1jFM4vXzn6-3OpObB7VDZZNHP4lj0FNTsNVeWUdiyCR3hMs7Qn5IpMdSr3gm9P0O/exec";
