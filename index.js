@@ -11,8 +11,8 @@ const sheetCSV =
 const postDays = [1,3,0]; // 月 水 日
 
 // 投稿時間
-const postHour = 11;
-const postMinute = 55;
+const postHour = 12;
+const postMinute = 10;
 
 // GAS Webhook（あとで自分のURLに変更）
 const gasWebhook = "https://script.google.com/macros/s/AKfycbzo1jFM4vXzn6-3OpObB7VDZZNHP4lj0FNTsNVeWUdiyCR3hMs7Qn5IpMdSr3gm9P0O/exec";
@@ -72,11 +72,16 @@ async function markPosted(row) {
 }
 
 async function postTweet(tweet) {
+
   try {
 
-    await page.goto("https://x.com/home", { timeout: 60000 });
+    await page.goto("https://x.com/home");
 
-    await page.waitForSelector('[data-testid="tweetTextarea_0"]', { timeout: 60000 });
+    await page.waitForTimeout(8000);
+
+    await page.click('[data-testid="SideNav_NewTweet_Button"]');
+
+    await page.waitForSelector('[data-testid="tweetTextarea_0"]');
 
     await page.fill('[data-testid="tweetTextarea_0"]', tweet);
 
@@ -89,6 +94,7 @@ async function postTweet(tweet) {
     console.log("投稿失敗:", tweet, e);
 
   }
+
 }
 
 async function runBot(){
