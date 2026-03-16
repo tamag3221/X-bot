@@ -101,6 +101,11 @@ async function runBot(){
 
 try{
 
+if (!page || page.isClosed()) {
+  console.log("browser was closed, restarting...");
+  await startBrowser();
+}
+
 const now = new Date();
 
 const day = now.getDay();
