@@ -216,6 +216,9 @@ console.log("bot error:",e);
 
 // 起動
 startBrowser().then(() => {
+  
+  runBot();
+  
   setInterval(runBot, 300000);
 });
 
