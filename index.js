@@ -38,9 +38,16 @@ let page;
 async function startBrowser() {
 
   browser = await chromium.launch({
-    headless: true,
-    args: ["--no-sandbox","--disable-setuid-sandbox"]
-  });
+  headless: true,
+  args: [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--single-process",
+    "--no-zygote"
+  ]
+});
 
   context = await browser.newContext();
 
@@ -176,6 +183,8 @@ console.log("投稿:",random.tweet);
 await postTweet(random.tweet);
 
 await markPosted(random.row);
+
+await browser.close();
 
 }catch(e){
 
