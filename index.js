@@ -82,19 +82,24 @@ async function postTweet(tweet) {
 
   try {
 
-    await page.goto("https://x.com/home");
+    await page.goto("https://x.com/home", {
+      waitUntil: "domcontentloaded",
+      timeout: 90000
+    });
 
-    await page.waitForTimeout(8000);
+    await page.waitForTimeout(12000);
 
     await page.click('[data-testid="SideNav_NewTweet_Button"]');
 
-    await page.waitForSelector('[data-testid="tweetTextarea_0"]');
+    await page.waitForSelector('[data-testid="tweetTextarea_0"]',{timeout:60000});
 
     await page.fill('[data-testid="tweetTextarea_0"]', tweet);
 
     await page.click('[data-testid="tweetButtonInline"]');
 
     console.log("投稿成功:", tweet);
+
+    await browser.close();
 
   } catch (e) {
 
@@ -183,8 +188,6 @@ console.log("投稿:",random.tweet);
 await postTweet(random.tweet);
 
 await markPosted(random.row);
-
-await browser.close();
 
 }catch(e){
 
