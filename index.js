@@ -103,7 +103,12 @@ try{
 
 if (!page || page.isClosed()) {
   console.log("browser was closed, restarting...");
-  await startBrowser();
+  try {
+    await startBrowser();
+  } catch(e) {
+    console.log("browser restart failed", e);
+    return;
+  }
 }
 
 const now = new Date();
@@ -113,6 +118,10 @@ const hour = now.getHours();
 const minute = now.getMinutes();
 
 console.log("bot check", day, hour, minute);
+
+} catch (e) {
+  console.log("bot error:", e);
+}
 
 // 投稿曜日と時間チェック
 if(!postDays.includes (day)) {
