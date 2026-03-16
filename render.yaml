@@ -2,5 +2,5 @@ services:
   - type: web
     name: xbot
     runtime: node
-    buildCommand: npm install && npx playwright install chromium
+    buildCommand: npm install && npx playwright install chromium --with-deps
     startCommand: node index.js
