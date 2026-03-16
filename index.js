@@ -196,7 +196,7 @@ console.log("bot error:",e);
 
 // 起動
 startBrowser().then(() => {
-  setInterval(runBot, 60000);
+  setInterval(runBot, 300000);
 });
 
 // Render用Webサーバー
