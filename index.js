@@ -11,8 +11,8 @@ const sheetCSV =
 const postDays = [1,3,0]; // 月 水 日
 
 // 投稿時間
-const postHour = 0;
-const postMinute = 43;
+const postHour = 1;
+const postMinute = 25;
 
 // GAS Webhook（あとで自分のURLに変更）
 const gasWebhook = "https://script.google.com/macros/s/AKfycbzo1jFM4vXzn6-3OpObB7VDZZNHP4lj0FNTsNVeWUdiyCR3hMs7Qn5IpMdSr3gm9P0O/exec";
@@ -110,8 +110,8 @@ const minute = now.getMinutes();
 console.log("bot check", day, hour, minute);
 
 // 投稿曜日と時間チェック
-if(!postDays.includes(day) || hour !== postHour || minute !== postMinute){
-return;
+if(!postDays.includes(day) || hour !== postHour || minute < postMinute || minute > postMinute + 2){
+  return;
 }
 
 let res;
