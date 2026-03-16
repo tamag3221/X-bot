@@ -11,7 +11,7 @@ const sheetCSV =
 const postDays = [1,3,0]; // 月 水 日
 
 // 投稿時間
-const postHour = 12;
+const postHour = 0;
 const postMinute = 43;
 
 // GAS Webhook（あとで自分のURLに変更）
@@ -114,7 +114,23 @@ if(!postDays.includes(day) || hour !== postHour || minute !== postMinute){
 return;
 }
 
-const res = await fetch(sheetCSV);
+let res;
+
+try{
+
+  res = await fetch(sheetCSV);
+
+  if(!res.ok){
+    console.log("sheet fetch failed",res.status);
+    return;
+  }
+
+}catch(e){
+
+  console.log("sheet fetch error",e);
+  return;
+
+}
 const text = await res.text();
 const rows = text.split("\n");
 
