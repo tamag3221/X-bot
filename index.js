@@ -112,7 +112,9 @@ async function postTweet(tweet) {
 
     console.log("投稿成功:", tweet);
 
-    await browser.close();
+    finally {
+      await browser.close();
+}
 
   } catch (e) {
 
