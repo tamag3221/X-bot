@@ -122,10 +122,10 @@ console.log("bot check", day, hour, minute);
 } catch (e) {
   console.log("bot error:", e);
 }
-
+}
 // 投稿曜日と時間チェック
-if(!postDays.includes (day)) {
-return;
+if(false){
+  return;
 }
 if (hour < postHour) {
 return;
