@@ -39,13 +39,16 @@ async function startBrowser() {
 
   browser = await chromium.launch({
   headless: true,
+  chromiumSandbox: false,
   args: [
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
     "--disable-dev-shm-usage",
     "--disable-gpu",
-    "--single-process",
-    "--no-zygote"
+    "--disable-extensions",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-features=site-per-process",
+    "--disable-web-security"
   ]
 });
 
