@@ -58,6 +58,16 @@ async function startBrowser() {
 
   page = await context.newPage();
 
+// ⭐ ここに追加
+  await page.route("**/*", route => {
+    const type = route.request().resourceType();
+    if (type === "image" || type === "font" || type === "media") {
+      route.abort();
+    } else {
+      route.continue();
+    }
+  });
+
   await page.goto("https://x.com/home");
 
   await page.waitForTimeout(5000); // ←追加
